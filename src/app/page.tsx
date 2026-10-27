@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import { CategoryFilter } from "@/components/CategoryFilter/CategoryFilter";
+import { Hero } from "@/components/Hero/Hero";
+import { HeroControls } from "@/components/Hero/HeroControls";
 import { ListingUrlTracker } from "@/components/ListingUrlTracker/ListingUrlTracker";
 import { ProductResults } from "@/components/ProductResults/ProductResults";
 import { ProductGridSkeleton } from "@/components/Skeletons/ProductGridSkeleton";
-import { SearchBar } from "@/components/SearchBar/SearchBar";
 import { getCategories } from "@/lib/api";
 import { firstParam } from "@/lib/searchParams";
 
@@ -15,6 +15,15 @@ interface HomePageProps {
   }>;
 }
 
+function HeroControlsSkeleton() {
+  return (
+    <div className="mx-auto flex h-[108px] w-full max-w-2xl flex-col gap-3 sm:h-12 sm:flex-row">
+      <div className="h-12 flex-1 animate-pulse rounded-control bg-white/60 motion-reduce:animate-none" />
+      <div className="h-12 animate-pulse rounded-control bg-white/60 motion-reduce:animate-none sm:w-52" />
+    </div>
+  );
+}
+
 export default async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
   const q = firstParam(params.q)?.trim() || undefined;
@@ -23,39 +32,27 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const categories = await getCategories();
 
   return (
-    <main className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <header className="mb-6 flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
-          Content Explorer
-        </h1>
-      </header>
-
-      <Suspense
-        fallback={
-          <div className="mb-6 flex flex-col gap-3 sm:flex-row">
-            <div className="h-10 w-full rounded-lg bg-gray-100 sm:max-w-xs" />
-            <div className="h-10 w-full rounded-lg bg-gray-100 sm:w-48" />
-          </div>
-        }
-      >
-        <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+    <main className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Hero>
+        <Suspense fallback={<HeroControlsSkeleton />}>
           <ListingUrlTracker />
-          <SearchBar />
-          <CategoryFilter categories={categories} />
-        </div>
-      </Suspense>
+          <HeroControls categories={categories} query={q} category={category} />
+        </Suspense>
+      </Hero>
 
-      <Suspense
-        key={`${q ?? ""}|${category ?? ""}|${pageParam ?? ""}`}
-        fallback={
-          <div>
-            <div className="mb-6 h-5 w-40 animate-pulse rounded bg-gray-200" />
-            <ProductGridSkeleton />
-          </div>
-        }
-      >
-        <ProductResults q={q} category={category} pageParam={pageParam} />
-      </Suspense>
+      <section className="pb-16">
+        <Suspense
+          key={`${q ?? ""}|${category ?? ""}|${pageParam ?? ""}`}
+          fallback={
+            <div>
+              <div className="mb-6 h-5 w-40 animate-pulse rounded bg-gray-200 motion-reduce:animate-none" />
+              <ProductGridSkeleton />
+            </div>
+          }
+        >
+          <ProductResults q={q} category={category} pageParam={pageParam} />
+        </Suspense>
+      </section>
     </main>
   );
 }

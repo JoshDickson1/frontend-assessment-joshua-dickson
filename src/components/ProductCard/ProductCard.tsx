@@ -40,7 +40,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
-        <h2 className="line-clamp-2 text-sm font-medium text-gray-900 group-hover:text-blue-600">
+        <h2 className="line-clamp-2 text-sm font-medium text-gray-900 group-hover:text-accent">
           {product.title}
         </h2>
 

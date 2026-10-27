@@ -20,7 +20,7 @@ export function EmptyState({ query, category }: EmptyStateProps) {
       <p className="mt-2 max-w-md text-sm text-gray-500">{message}</p>
       <Link
         href="/"
-        className="mt-6 inline-flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition hover:bg-blue-700"
+        className="mt-6 inline-flex h-10 items-center rounded-lg bg-accent px-4 text-sm font-medium text-accent-foreground transition hover:bg-accent/90"
       >
         Clear filters
       </Link>

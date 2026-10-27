@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Instrument_Serif } from "next/font/google";
+import { Background } from "@/components/Background/Background";
+import { Navbar } from "@/components/Navbar/Navbar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,9 +9,10 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-logo",
   subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${geistSans.variable} ${instrumentSerif.variable} font-sans antialiased`}
       >
-        {children}
+        <div className="relative isolate min-h-screen">
+          <Background />
+          <Navbar />
+          <div className="relative">{children}</div>
+        </div>
       </body>
     </html>
   );

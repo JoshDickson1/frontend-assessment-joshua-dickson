@@ -81,7 +81,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
         <div className="flex flex-col gap-5">
           <div className="flex flex-wrap items-center gap-2 text-sm">
-            <span className="rounded-full bg-blue-50 px-3 py-1 font-medium text-blue-700">
+            <span className="rounded-full bg-accent-soft px-3 py-1 font-medium text-accent">
               {formatCategoryName(product.category)}
             </span>
             {product.brand && (

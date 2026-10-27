@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function ProductNotFound() {
   return (
     <main className="mx-auto flex min-h-[60vh] w-full max-w-lg flex-col items-center justify-center px-4 text-center">
-      <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+      <p className="text-sm font-semibold uppercase tracking-wide text-accent">
         404
       </p>
       <h1 className="mt-2 text-2xl font-semibold text-gray-900">
@@ -14,7 +14,7 @@ export default function ProductNotFound() {
       </p>
       <Link
         href="/"
-        className="mt-6 inline-flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition hover:bg-blue-700"
+        className="mt-6 inline-flex h-10 items-center rounded-lg bg-accent px-4 text-sm font-medium text-accent-foreground transition hover:bg-accent/90"
       >
         Back to listing
       </Link>

@@ -14,7 +14,7 @@ const enabledClass =
   "border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900";
 const disabledClass =
   "cursor-not-allowed border-gray-200 bg-gray-50 text-gray-300";
-const activeClass = "border-blue-600 bg-blue-600 text-white";
+const activeClass = "border-accent bg-accent text-accent-foreground";
 
 export function Pagination({
   currentPage,

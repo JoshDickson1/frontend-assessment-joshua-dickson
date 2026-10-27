@@ -40,9 +40,9 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
                 onClick={() => setActiveImage(image)}
                 aria-label={`View image ${index + 1} of ${images.length}`}
                 aria-pressed={isActive}
-                className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border bg-white p-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
+                className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border bg-white p-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${
                   isActive
-                    ? "border-blue-600 ring-2 ring-blue-100"
+                    ? "border-accent ring-2 ring-accent/15"
                     : "border-gray-200 hover:border-gray-300"
                 }`}
               >
