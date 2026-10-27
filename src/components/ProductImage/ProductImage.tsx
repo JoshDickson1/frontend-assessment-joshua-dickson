@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ProductImageProps {
   src?: string;
@@ -15,6 +15,12 @@ export function ProductImage({
   priority = false,
 }: ProductImageProps) {
   const [failed, setFailed] = useState(false);
+  const [unoptimized, setUnoptimized] = useState(false);
+
+  useEffect(() => {
+    setFailed(false);
+    setUnoptimized(false);
+  }, [src]);
 
   if (!src || failed) {
     return (
@@ -31,9 +37,16 @@ export function ProductImage({
       width={300}
       height={300}
       priority={priority}
+      unoptimized={unoptimized}
       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
       className="h-full w-full object-contain"
-      onError={() => setFailed(true)}
+      onError={() => {
+        if (unoptimized) {
+          setFailed(true);
+        } else {
+          setUnoptimized(true);
+        }
+      }}
     />
   );
 }
