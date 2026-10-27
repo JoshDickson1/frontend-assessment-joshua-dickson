@@ -7,6 +7,9 @@ interface ProductImageProps {
   src?: string;
   alt: string;
   priority?: boolean;
+  sizes?: string;
+  width?: number;
+  height?: number;
 }
 
 function LoadingDots() {
@@ -28,6 +31,9 @@ export function ProductImage({
   src,
   alt,
   priority = false,
+  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw",
+  width = 300,
+  height = 300,
 }: ProductImageProps) {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -53,11 +59,11 @@ export function ProductImage({
       <Image
         src={src}
         alt={alt}
-        width={300}
-        height={300}
+        width={width}
+        height={height}
         priority={priority}
         unoptimized={unoptimized}
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        sizes={sizes}
         className={`h-full w-full object-contain transition-opacity duration-300 motion-reduce:transition-none ${
           loaded ? "opacity-100" : "opacity-0"
         }`}

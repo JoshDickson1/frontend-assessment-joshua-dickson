@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { CategoryFilter } from "@/components/CategoryFilter/CategoryFilter";
+import { ListingUrlTracker } from "@/components/ListingUrlTracker/ListingUrlTracker";
 import { ProductResults } from "@/components/ProductResults/ProductResults";
 import { ProductGridSkeleton } from "@/components/Skeletons/ProductGridSkeleton";
 import { SearchBar } from "@/components/SearchBar/SearchBar";
@@ -38,6 +39,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         }
       >
         <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+          <ListingUrlTracker />
           <SearchBar />
           <CategoryFilter categories={categories} />
         </div>

@@ -10,6 +10,7 @@ export interface Product {
   brand?: string;
   thumbnail: string;
   images: string[];
+  tags: string[];
 }
 
 export interface ProductsResponse {

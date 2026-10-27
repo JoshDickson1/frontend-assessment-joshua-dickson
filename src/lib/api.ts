@@ -1,3 +1,4 @@
+import { cache } from "react";
 import type { Category, Product, ProductsResponse } from "@/types/product";
 
 const API_BASE_URL = (
@@ -7,6 +8,16 @@ const API_BASE_URL = (
 const REVALIDATE_SECONDS = 3600;
 
 export const PRODUCTS_PER_PAGE = 20;
+
+export class ApiError extends Error {
+  readonly status: number;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+  }
+}
 
 interface GetProductsParams {
   limit?: number;
@@ -21,7 +32,8 @@ async function fetchJson<T>(path: string): Promise<T> {
   });
 
   if (!response.ok) {
-    throw new Error(
+    throw new ApiError(
+      response.status,
       `API request failed (${response.status} ${response.statusText}): ${path}`,
     );
   }
@@ -66,9 +78,21 @@ export async function getProducts({
   return fetchJson<ProductsResponse>(`/products?limit=${limit}&skip=${skip}`);
 }
 
-export function getProduct(id: string | number): Promise<Product> {
-  return fetchJson<Product>(`/products/${id}`);
-}
+export const getProduct = cache(
+  async (id: string | number): Promise<Product | null> => {
+    try {
+      return await fetchJson<Product>(
+        `/products/${encodeURIComponent(String(id))}`,
+      );
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 404) {
+        return null;
+      }
+
+      throw error;
+    }
+  },
+);
 
 export function getCategories(): Promise<Category[]> {
   return fetchJson<Category[]>("/products/categories");

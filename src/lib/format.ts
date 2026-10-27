@@ -1,0 +1,24 @@
+const priceFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
+export function formatPrice(value: number): string {
+  return priceFormatter.format(value);
+}
+
+export function getDiscountedPrice(
+  price: number,
+  discountPercentage: number,
+): number {
+  const discounted = price * (1 - discountPercentage / 100);
+
+  return Math.round(discounted * 100) / 100;
+}
+
+export function formatCategoryName(slug: string): string {
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
