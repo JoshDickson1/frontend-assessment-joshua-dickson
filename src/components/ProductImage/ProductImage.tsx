@@ -9,15 +9,32 @@ interface ProductImageProps {
   priority?: boolean;
 }
 
+function LoadingDots() {
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute inset-0 flex items-center justify-center"
+    >
+      <span className="flex items-center gap-1.5">
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gray-400 motion-reduce:animate-none [animation-delay:0ms]" />
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gray-400 motion-reduce:animate-none [animation-delay:150ms]" />
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gray-400 motion-reduce:animate-none [animation-delay:300ms]" />
+      </span>
+    </div>
+  );
+}
+
 export function ProductImage({
   src,
   alt,
   priority = false,
 }: ProductImageProps) {
+  const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
   const [unoptimized, setUnoptimized] = useState(false);
 
   useEffect(() => {
+    setLoaded(false);
     setFailed(false);
     setUnoptimized(false);
   }, [src]);
@@ -31,22 +48,28 @@ export function ProductImage({
   }
 
   return (
-    <Image
-      src={src}
-      alt={alt}
-      width={300}
-      height={300}
-      priority={priority}
-      unoptimized={unoptimized}
-      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-      className="h-full w-full object-contain"
-      onError={() => {
-        if (unoptimized) {
-          setFailed(true);
-        } else {
-          setUnoptimized(true);
-        }
-      }}
-    />
+    <div className="relative h-full w-full">
+      {!loaded && <LoadingDots />}
+      <Image
+        src={src}
+        alt={alt}
+        width={300}
+        height={300}
+        priority={priority}
+        unoptimized={unoptimized}
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        className={`h-full w-full object-contain transition-opacity duration-300 motion-reduce:transition-none ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+        onLoad={() => setLoaded(true)}
+        onError={() => {
+          if (unoptimized) {
+            setFailed(true);
+          } else {
+            setUnoptimized(true);
+          }
+        }}
+      />
+    </div>
   );
 }
