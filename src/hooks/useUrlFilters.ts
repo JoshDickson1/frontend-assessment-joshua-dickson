@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useTransition } from "react";
 import { buildProductListUrl } from "@/lib/searchParams";
 
 interface FilterUpdates {
@@ -13,6 +13,7 @@ interface FilterUpdates {
 export function useUrlFilters() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
 
   const updateFilters = useCallback(
     ({ q, category, page }: FilterUpdates) => {
@@ -20,17 +21,19 @@ export function useUrlFilters() {
       const nextCategory =
         category !== undefined ? category : searchParams.get("category");
 
-      router.replace(
-        buildProductListUrl({
-          q: nextQuery || undefined,
-          category: nextCategory || undefined,
-          page: page ?? 1,
-        }),
-        { scroll: false },
-      );
+      startTransition(() => {
+        router.replace(
+          buildProductListUrl({
+            q: nextQuery || undefined,
+            category: nextCategory || undefined,
+            page: page ?? 1,
+          }),
+          { scroll: false },
+        );
+      });
     },
-    [router, searchParams],
+    [router, searchParams, startTransition],
   );
 
-  return { updateFilters, searchParams };
+  return { updateFilters, searchParams, isPending };
 }
