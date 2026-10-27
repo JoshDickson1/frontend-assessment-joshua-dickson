@@ -19,7 +19,3 @@ export function parsePage(pageParam?: string): PageState {
 export function getTotalPages(total: number): number {
   return Math.max(1, Math.ceil(total / PRODUCTS_PER_PAGE));
 }
-
-export function getPageHref(page: number): string {
-  return page <= 1 ? "/" : `/?page=${page}`;
-}

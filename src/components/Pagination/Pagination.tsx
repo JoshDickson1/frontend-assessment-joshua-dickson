@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { getPageHref } from "@/lib/pagination";
+import { buildProductListUrl } from "@/lib/searchParams";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
+  q?: string;
+  category?: string;
 }
 
 const baseClass =
@@ -14,7 +16,12 @@ const disabledClass =
   "cursor-not-allowed border-gray-200 bg-gray-50 text-gray-300";
 const activeClass = "border-blue-600 bg-blue-600 text-white";
 
-export function Pagination({ currentPage, totalPages }: PaginationProps) {
+export function Pagination({
+  currentPage,
+  totalPages,
+  q,
+  category,
+}: PaginationProps) {
   if (totalPages <= 1) {
     return null;
   }
@@ -22,6 +29,8 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
+  const pageHref = (page: number) =>
+    buildProductListUrl({ q, category, page });
 
   return (
     <nav
@@ -32,7 +41,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
         <span className={`${baseClass} ${disabledClass}`}>Previous</span>
       ) : (
         <Link
-          href={getPageHref(currentPage - 1)}
+          href={pageHref(currentPage - 1)}
           className={`${baseClass} ${enabledClass}`}
         >
           Previous
@@ -51,7 +60,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
         ) : (
           <Link
             key={page}
-            href={getPageHref(page)}
+            href={pageHref(page)}
             className={`${baseClass} ${enabledClass}`}
           >
             {page}
@@ -63,7 +72,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
         <span className={`${baseClass} ${disabledClass}`}>Next</span>
       ) : (
         <Link
-          href={getPageHref(currentPage + 1)}
+          href={pageHref(currentPage + 1)}
           className={`${baseClass} ${enabledClass}`}
         >
           Next
