@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useUrlFilters } from "@/hooks/useUrlFilters";
 
@@ -9,12 +9,19 @@ export function SearchBar() {
   const urlQuery = searchParams.get("q") ?? "";
   const [query, setQuery] = useState(urlQuery);
   const debouncedQuery = useDebounce(query);
+  const skipNextDebouncedUpdate = useRef(false);
 
   useEffect(() => {
+    skipNextDebouncedUpdate.current = true;
     setQuery(urlQuery);
   }, [urlQuery]);
 
   useEffect(() => {
+    if (skipNextDebouncedUpdate.current) {
+      skipNextDebouncedUpdate.current = false;
+      return;
+    }
+
     if (debouncedQuery === urlQuery) {
       return;
     }
