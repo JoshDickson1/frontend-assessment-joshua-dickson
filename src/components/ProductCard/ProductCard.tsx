@@ -30,7 +30,7 @@ export function ProductCard({
           ? ({ "--card-index": index } as CSSProperties)
           : undefined
       }
-      className={`group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200/70 bg-white shadow-sm transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
+      className={`focus-ring group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200/70 bg-white shadow-sm transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
         shouldAnimate
           ? "animate-[card-in_320ms_ease-out_both] [animation-delay:calc((var(--card-index)-4)*50ms)] motion-reduce:animate-none"
           : ""

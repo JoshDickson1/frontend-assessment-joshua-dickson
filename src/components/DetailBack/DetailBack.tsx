@@ -40,7 +40,7 @@ export function DetailBack() {
   return (
     <>
       <span ref={inlineRef} className="inline-flex">
-        <BackToListing />
+        <BackToListing href={href} />
       </span>
 
       {showInNavbar && slot

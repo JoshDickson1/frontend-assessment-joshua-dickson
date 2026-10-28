@@ -2,11 +2,12 @@
 
 import { ArrowLeft } from "lucide-react";
 import { ProgressLink } from "@/components/NavigationProgress/ProgressLink";
-import { useListingHref } from "@/hooks/useListingHref";
 
-export function BackToListing() {
-  const href = useListingHref();
+interface BackToListingProps {
+  href: string;
+}
 
+export function BackToListing({ href }: BackToListingProps) {
   return (
     <ProgressLink
       href={href}

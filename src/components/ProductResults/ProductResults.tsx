@@ -34,7 +34,11 @@ export async function ProductResults({
   return (
     <>
       <div className="mb-6 flex flex-wrap items-center gap-3">
-        <p className="text-sm text-gray-600">
+        <p
+          aria-live="polite"
+          aria-atomic="true"
+          className="text-sm text-gray-600"
+        >
           {total} products &middot; Page {currentPage} of {totalPages}
         </p>
         <FilterChips q={q} category={category} />

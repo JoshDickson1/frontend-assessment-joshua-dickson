@@ -7,7 +7,7 @@ const footerLinkClass =
 export function Footer() {
   return (
     <footer className="border-t border-white/70 bg-white/90 backdrop-blur-glass supports-[backdrop-filter]:bg-white/75">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 pb-12 pt-8 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-10 lg:px-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-10 lg:px-8">
         <div className="flex flex-col gap-2">
           <Link
             href="/"

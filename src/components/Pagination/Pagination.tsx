@@ -10,11 +10,11 @@ interface PaginationProps {
 }
 
 const baseClass =
-  "inline-flex h-9 min-w-9 items-center justify-center rounded-full border px-2.5 text-sm font-medium transition sm:px-3";
+  "focus-ring inline-flex h-9 min-w-9 items-center justify-center rounded-full border px-2.5 text-sm font-medium transition sm:px-3";
 const enabledClass =
   "border-white/60 bg-white/60 text-gray-700 backdrop-blur-sm hover:-translate-y-0.5 hover:border-white/80 hover:bg-white hover:text-gray-900 hover:shadow-sm motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 const disabledClass =
-  "cursor-not-allowed border-white/40 bg-white/40 text-gray-300";
+  "cursor-not-allowed border-white/40 bg-white/40 text-gray-500";
 const activeClass = "border-accent bg-accent text-accent-foreground shadow-sm";
 
 export function Pagination({
@@ -54,7 +54,7 @@ export function Pagination({
           <span
             key={`ellipsis-${index}`}
             aria-hidden="true"
-            className="inline-flex h-9 min-w-9 items-center justify-center px-1 text-sm text-gray-400"
+            className="inline-flex h-9 min-w-9 items-center justify-center px-1 text-sm text-gray-500"
           >
             …
           </span>

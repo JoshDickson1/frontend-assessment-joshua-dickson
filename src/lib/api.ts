@@ -6,6 +6,7 @@ const API_BASE_URL = (
 ).replace(/\/$/, "");
 
 const REVALIDATE_SECONDS = 3600;
+const REQUEST_TIMEOUT_MS = 8000;
 
 export const PRODUCTS_PER_PAGE = 20;
 
@@ -26,9 +27,10 @@ interface GetProductsParams {
   category?: string;
 }
 
-async function fetchJson<T>(path: string): Promise<T> {
+async function requestJson<T>(path: string): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     next: { revalidate: REVALIDATE_SECONDS },
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
 
   if (!response.ok) {
@@ -39,6 +41,21 @@ async function fetchJson<T>(path: string): Promise<T> {
   }
 
   return response.json() as Promise<T>;
+}
+
+async function fetchJson<T>(path: string): Promise<T> {
+  try {
+    return await requestJson<T>(path);
+  } catch (error) {
+    if (
+      error instanceof ApiError &&
+      (error.status === 404 || error.status < 500)
+    ) {
+      throw error;
+    }
+
+    return requestJson<T>(path);
+  }
 }
 
 export async function getProducts({

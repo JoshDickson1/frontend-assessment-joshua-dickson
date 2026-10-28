@@ -7,7 +7,7 @@ interface HeroProps {
 export function Hero({ children }: HeroProps) {
   return (
     <section className="relative pb-12 pt-16 sm:pb-16 sm:pt-24">
-      <div className="mx-auto flex max-w-3xl animate-[hero-in_300ms_ease-out] flex-col items-center text-center motion-reduce:animate-none">
+      <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
         <h1 className="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
           Explore the catalog.
         </h1>

@@ -14,23 +14,23 @@ export function Breadcrumbs({ category, title }: BreadcrumbsProps) {
         <li>
           <ProgressLink
             href="/"
-            className="rounded-full px-1.5 py-0.5 transition hover:bg-white hover:text-gray-900"
+            className="focus-ring rounded-full px-1.5 py-0.5 transition hover:bg-white hover:text-gray-900"
           >
             Home
           </ProgressLink>
         </li>
-        <li aria-hidden="true" className="flex items-center text-gray-400">
+        <li aria-hidden="true" className="flex items-center text-gray-500">
           <ChevronRight strokeWidth={1.8} className="h-3.5 w-3.5" />
         </li>
         <li>
           <ProgressLink
             href={`/?category=${encodeURIComponent(category)}`}
-            className="rounded-full px-1.5 py-0.5 transition hover:bg-white hover:text-gray-900"
+            className="focus-ring rounded-full px-1.5 py-0.5 transition hover:bg-white hover:text-gray-900"
           >
             {formatCategoryName(category)}
           </ProgressLink>
         </li>
-        <li aria-hidden="true" className="flex items-center text-gray-400">
+        <li aria-hidden="true" className="flex items-center text-gray-500">
           <ChevronRight strokeWidth={1.8} className="h-3.5 w-3.5" />
         </li>
         <li

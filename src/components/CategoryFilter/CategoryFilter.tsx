@@ -280,14 +280,14 @@ export function CategoryFilter({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listboxId}
-        aria-label="Filter by category"
+        aria-label={`Filter by category, currently ${selectedName}`}
         className="flex h-12 w-full items-center justify-between gap-2 rounded-control bg-transparent pl-4 pr-3 text-left text-sm text-gray-900 outline-none"
       >
         <span className="truncate">{selectedName}</span>
         <ChevronDown
           aria-hidden="true"
           strokeWidth={1.8}
-          className={`h-4 w-4 shrink-0 text-gray-500 transition-transform duration-200 motion-reduce:transition-none ${
+          className={`h-4 w-4 shrink-0 text-gray-600 transition-transform duration-200 motion-reduce:transition-none ${
             open ? "rotate-180" : ""
           }`}
         />

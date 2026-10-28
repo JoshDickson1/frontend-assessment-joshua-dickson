@@ -18,13 +18,13 @@ export async function generateMetadata({
   const product = await getProduct(id);
 
   if (!product) {
-    return { title: "Product not found | Content Explorer" };
+    return { title: "Product not found" };
   }
 
   const image = product.thumbnail || product.images[0];
 
   return {
-    title: `${product.title} | Content Explorer`,
+    title: product.title,
     description: product.description,
     openGraph: {
       title: product.title,
@@ -50,7 +50,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const inStock = product.stock > 0;
 
   return (
-    <main className="mx-auto w-full max-w-7xl animate-[page-in_280ms_ease-out] px-4 py-10 sm:px-6 lg:px-8 motion-reduce:animate-none">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8"
+    >
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="order-2 sm:order-1">
           <Breadcrumbs category={product.category} title={product.title} />
@@ -93,7 +97,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             {hasDiscount && (
               <>
-                <span className="text-lg text-gray-500 line-through">
+                <span className="text-lg text-gray-600 line-through">
                   {formatPrice(product.price)}
                 </span>
                 <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-800">

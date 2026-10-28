@@ -47,6 +47,10 @@ body {
     box-shadow: var(--shadow-glass);
   }
 
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
   @supports not (backdrop-filter: blur(1px)) {
     .glass {
       background-color: var(--surface-strong);
@@ -163,17 +167,6 @@ html::-webkit-scrollbar-thumb:hover {
 @keyframes shimmer {
   to {
     transform: translateX(100%);
-  }
-}
-
-@keyframes hero-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 

@@ -69,7 +69,7 @@ export function SearchBar({
       <Search
         aria-hidden="true"
         strokeWidth={1.8}
-        className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+        className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-600"
       />
 
       <input
@@ -82,7 +82,7 @@ export function SearchBar({
         onKeyDown={handleKeyDown}
         placeholder="Search products..."
         aria-label="Search products"
-        className="h-12 w-full rounded-control bg-transparent pl-11 pr-10 text-sm text-gray-900 outline-none placeholder:text-gray-500"
+        className="h-12 w-full rounded-control bg-transparent pl-11 pr-10 text-sm text-gray-900 outline-none placeholder:text-gray-600"
       />
 
       {query && (
@@ -90,7 +90,7 @@ export function SearchBar({
           type="button"
           onClick={clearSearch}
           aria-label="Clear search"
-          className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+          className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
         >
           <X aria-hidden="true" strokeWidth={1.8} className="h-4 w-4" />
         </button>

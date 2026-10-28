@@ -64,8 +64,12 @@ export function ProductImage({
         priority={priority}
         unoptimized={unoptimized}
         sizes={sizes}
-        className={`h-full w-full object-contain transition-opacity duration-300 motion-reduce:transition-none ${
-          loaded ? "opacity-100" : "opacity-0"
+        className={`h-full w-full object-contain ${
+          priority
+            ? "opacity-100"
+            : `transition-opacity duration-300 motion-reduce:transition-none ${
+                loaded ? "opacity-100" : "opacity-0"
+              }`
         }`}
         onLoad={() => setLoaded(true)}
         onError={() => {
