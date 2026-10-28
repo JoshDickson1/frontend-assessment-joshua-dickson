@@ -37,7 +37,7 @@ export default function RootLayout({
           <div className="relative isolate flex flex-1 flex-col">
             <Background />
             <Navbar />
-            <div className="relative flex-1">{children}</div>
+            <div className="relative flex flex-1 flex-col">{children}</div>
             <Footer />
           </div>
         </NavigationProgressProvider>

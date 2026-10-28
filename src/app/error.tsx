@@ -14,7 +14,7 @@ export default function Error({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <main className="mx-auto flex min-h-[60vh] w-full max-w-lg animate-[page-in_280ms_ease-out] flex-col items-center justify-center px-4 py-10 text-center motion-reduce:animate-none">
+    <main className="mx-auto flex min-h-[60vh] w-full max-w-lg flex-1 animate-[page-in_280ms_ease-out] flex-col items-center justify-center px-4 py-10 text-center motion-reduce:animate-none">
       <div className="glass w-full rounded-2xl px-6 py-12">
         <h1 className="text-2xl font-semibold text-gray-900">
           Something went wrong loading products

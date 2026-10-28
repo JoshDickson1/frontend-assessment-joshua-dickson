@@ -2,7 +2,7 @@ import { ProgressLink } from "@/components/NavigationProgress/ProgressLink";
 
 export default function ProductNotFound() {
   return (
-    <main className="mx-auto flex min-h-[60vh] w-full max-w-lg animate-[page-in_280ms_ease-out] flex-col items-center justify-center px-4 py-10 text-center motion-reduce:animate-none">
+    <main className="mx-auto flex min-h-[60vh] w-full max-w-lg flex-1 animate-[page-in_280ms_ease-out] flex-col items-center justify-center px-4 py-10 text-center motion-reduce:animate-none">
       <div className="glass w-full rounded-2xl px-6 py-12">
         <p className="text-sm font-semibold uppercase tracking-wide text-accent">
           404
