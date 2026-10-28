@@ -97,8 +97,9 @@ harder to return to a specific result.
   transforms, and priority/LCP images skip the opacity fade so they can paint
   immediately.
 
-**Lighthouse 13.6, production URL, 28 October 2026.** Mobile emulation; the
-detail run is `/items/2`.
+**Lighthouse 13.6, run locally against the production URL, 28 October 2026.**
+Mobile emulation; the detail run is `/items/2`. These are local Lighthouse
+results, not PageSpeed Insights numbers.
 
 | Page | Performance | Accessibility | Best Practices | SEO | LCP | CLS | TBT |
 | --- | --- | --- | --- | --- | --- | --- | --- |
