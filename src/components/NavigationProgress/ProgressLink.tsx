@@ -19,6 +19,16 @@ function LinkStatusReporter() {
     }
   }, [pending, start, complete]);
 
+  useEffect(
+    () => () => {
+      if (wasPending.current) {
+        wasPending.current = false;
+        complete();
+      }
+    },
+    [complete],
+  );
+
   return null;
 }
 

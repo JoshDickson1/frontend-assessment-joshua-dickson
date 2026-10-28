@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import {
   createContext,
   useCallback,
@@ -41,6 +42,7 @@ interface NavigationProgressProviderProps {
 export function NavigationProgressProvider({
   children,
 }: NavigationProgressProviderProps) {
+  const pathname = usePathname();
   const [visible, setVisible] = useState(false);
   const startedAt = useRef(0);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -70,6 +72,10 @@ export function NavigationProgressProvider({
   }, [clearHideTimer]);
 
   useEffect(() => clearHideTimer, [clearHideTimer]);
+
+  useEffect(() => {
+    complete();
+  }, [pathname, complete]);
 
   const value = useMemo(() => ({ start, complete }), [start, complete]);
 
