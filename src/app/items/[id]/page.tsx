@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Star } from "lucide-react";
-import { BackToListing } from "@/components/BackToListing/BackToListing";
+import { DetailBack } from "@/components/DetailBack/DetailBack";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { ProductGallery } from "@/components/ProductGallery/ProductGallery";
 import { getProduct } from "@/lib/api";
@@ -56,7 +56,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <Breadcrumbs category={product.category} title={product.title} />
         </div>
         <div className="order-1 sm:order-2">
-          <BackToListing />
+          <DetailBack />
         </div>
       </div>
 

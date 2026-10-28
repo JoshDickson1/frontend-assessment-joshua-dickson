@@ -1,20 +1,11 @@
 "use client";
 
 import { ArrowLeft } from "lucide-react";
-import { useEffect, useState } from "react";
 import { ProgressLink } from "@/components/NavigationProgress/ProgressLink";
-import { LISTING_URL_STORAGE_KEY } from "@/lib/listing";
+import { useListingHref } from "@/hooks/useListingHref";
 
 export function BackToListing() {
-  const [href, setHref] = useState("/");
-
-  useEffect(() => {
-    const saved = window.sessionStorage.getItem(LISTING_URL_STORAGE_KEY);
-
-    if (saved && saved.startsWith("/") && !saved.startsWith("//")) {
-      setHref(saved);
-    }
-  }, []);
+  const href = useListingHref();
 
   return (
     <ProgressLink
