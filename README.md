@@ -93,9 +93,8 @@ harder to return to a specific result.
   fetched.
 - Static assets are served with immutable caching
   (`public, max-age=31536000, immutable`), verified on the production URL.
-- Glass blur is limited to a few surfaces. Hover and entrance motion use
-  transforms, and priority/LCP images skip the opacity fade so they can paint
-  immediately.
+- Glass blur is limited to a few surfaces. Hover motion uses transforms, and
+  priority/LCP images skip the opacity fade so they can paint immediately.
 
 **Lighthouse 13.6, run locally against the production URL, 28 October 2026.**
 Mobile emulation; the detail run is `/items/2`. These are local Lighthouse
