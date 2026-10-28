@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Instrument_Serif } from "next/font/google";
+import { Geist } from "next/font/google";
 import { Background } from "@/components/Background/Background";
 import { Footer } from "@/components/Footer/Footer";
 import { NavigationProgressProvider } from "@/components/NavigationProgress/NavigationProgressProvider";
@@ -9,12 +9,6 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-logo",
-  subsets: ["latin"],
-  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -31,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         id="top"
-        className={`${geistSans.variable} ${instrumentSerif.variable} flex min-h-screen flex-col font-sans antialiased`}
+        className={`${geistSans.variable} flex min-h-screen flex-col font-sans antialiased`}
       >
         <NavigationProgressProvider>
           <div className="relative isolate flex flex-1 flex-col">

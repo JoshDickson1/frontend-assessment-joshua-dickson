@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
+import { Sparkle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ProgressLink } from "@/components/NavigationProgress/ProgressLink";
 
@@ -35,9 +35,13 @@ export function Navbar() {
             aria-hidden="true"
             className="flex h-9 w-9 items-center justify-center rounded-2xl bg-accent text-accent-foreground shadow-sm transition-transform duration-200 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           >
-            <Sparkles strokeWidth={1.8} className="h-4 w-4" />
+            <Sparkle
+              strokeWidth={1.5}
+              fill="currentColor"
+              className="h-4 w-4"
+            />
           </span>
-          <span className="font-display text-2xl leading-none tracking-tight text-gray-900">
+          <span className="font-sans text-xl font-semibold leading-none tracking-tight text-gray-900 sm:text-2xl">
             Content Explorer
           </span>
         </ProgressLink>

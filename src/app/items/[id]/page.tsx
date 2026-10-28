@@ -51,9 +51,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <main className="mx-auto w-full max-w-7xl animate-[page-in_280ms_ease-out] px-4 py-10 sm:px-6 lg:px-8 motion-reduce:animate-none">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <Breadcrumbs category={product.category} title={product.title} />
-        <BackToListing />
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="order-2 sm:order-1">
+          <Breadcrumbs category={product.category} title={product.title} />
+        </div>
+        <div className="order-1 sm:order-2">
+          <BackToListing />
+        </div>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
@@ -121,24 +125,26 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </div>
           )}
 
-          <dl className="grid grid-cols-2 gap-4 rounded-xl border border-white/60 bg-white/60 p-4 text-sm">
-            <div>
-              <dt className="text-gray-600">Brand</dt>
-              <dd className="mt-0.5 font-medium text-gray-900">
-                {product.brand ?? "Unbranded"}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-gray-600">Availability</dt>
-              <dd
-                className={`mt-0.5 font-medium ${
-                  inStock ? "text-emerald-700" : "text-red-600"
-                }`}
-              >
-                {inStock ? "In stock" : "Out of stock"}
-              </dd>
-            </div>
-          </dl>
+          <div className="border-t border-dashed border-gray-300/80 pt-5">
+            <dl className="grid grid-cols-2 gap-4 rounded-xl border border-white/60 bg-white/60 p-4 text-sm">
+              <div>
+                <dt className="text-gray-600">Brand</dt>
+                <dd className="mt-0.5 font-medium text-gray-900">
+                  {product.brand ?? "Unbranded"}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-gray-600">Availability</dt>
+                <dd
+                  className={`mt-0.5 font-medium ${
+                    inStock ? "text-emerald-700" : "text-red-600"
+                  }`}
+                >
+                  {inStock ? "In stock" : "Out of stock"}
+                </dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </div>
     </main>
