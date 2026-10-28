@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { ChevronRight } from "lucide-react";
+import { ProgressLink } from "@/components/NavigationProgress/ProgressLink";
 import { formatCategoryName } from "@/lib/format";
 
 interface BreadcrumbsProps {
@@ -8,30 +9,33 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ category, title }: BreadcrumbsProps) {
   return (
-    <nav aria-label="Breadcrumb" className="text-sm text-gray-500">
-      <ol className="flex flex-wrap items-center gap-2">
+    <nav aria-label="Breadcrumb" className="text-xs text-gray-600">
+      <ol className="flex flex-wrap items-center gap-1.5 rounded-full border border-white/60 bg-white/60 px-3 py-1.5 backdrop-blur-sm">
         <li>
-          <Link href="/" className="transition hover:text-gray-900">
+          <ProgressLink
+            href="/"
+            className="rounded-full px-1.5 py-0.5 transition hover:bg-white hover:text-gray-900"
+          >
             Home
-          </Link>
+          </ProgressLink>
         </li>
-        <li aria-hidden="true" className="text-gray-300">
-          /
+        <li aria-hidden="true" className="flex items-center text-gray-400">
+          <ChevronRight strokeWidth={1.8} className="h-3.5 w-3.5" />
         </li>
         <li>
-          <Link
+          <ProgressLink
             href={`/?category=${encodeURIComponent(category)}`}
-            className="transition hover:text-gray-900"
+            className="rounded-full px-1.5 py-0.5 transition hover:bg-white hover:text-gray-900"
           >
             {formatCategoryName(category)}
-          </Link>
+          </ProgressLink>
         </li>
-        <li aria-hidden="true" className="text-gray-300">
-          /
+        <li aria-hidden="true" className="flex items-center text-gray-400">
+          <ChevronRight strokeWidth={1.8} className="h-3.5 w-3.5" />
         </li>
         <li
           aria-current="page"
-          className="max-w-full truncate font-medium text-gray-900"
+          className="max-w-full truncate px-1.5 font-medium text-gray-900"
         >
           {title}
         </li>

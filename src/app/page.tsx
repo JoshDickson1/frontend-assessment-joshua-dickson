@@ -18,8 +18,8 @@ interface HomePageProps {
 function HeroControlsSkeleton() {
   return (
     <div className="mx-auto flex h-[108px] w-full max-w-2xl flex-col gap-3 sm:h-12 sm:flex-row">
-      <div className="h-12 flex-1 animate-pulse rounded-control bg-white/60 motion-reduce:animate-none" />
-      <div className="h-12 animate-pulse rounded-control bg-white/60 motion-reduce:animate-none sm:w-52" />
+      <div className="skeleton h-12 flex-1 rounded-control" />
+      <div className="skeleton h-12 rounded-control sm:w-52" />
     </div>
   );
 }
@@ -45,7 +45,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           key={`${q ?? ""}|${category ?? ""}|${pageParam ?? ""}`}
           fallback={
             <div>
-              <div className="mb-6 h-5 w-40 animate-pulse rounded bg-gray-200 motion-reduce:animate-none" />
+              <div className="skeleton mb-6 h-5 w-40 rounded" />
               <ProductGridSkeleton />
             </div>
           }

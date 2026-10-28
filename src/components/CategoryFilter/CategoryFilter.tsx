@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, ChevronDown } from "lucide-react";
 import {
   useEffect,
   useId,
@@ -18,6 +19,7 @@ interface CategoryFilterProps {
   className?: string;
   variant?: CategoryFilterVariant;
   onSelect?: () => void;
+  onDismiss?: () => void;
   inline?: boolean;
 }
 
@@ -26,42 +28,13 @@ interface CategoryOption {
   name: string;
 }
 
-function ChevronIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      className={className}
-    >
-      <path d="m6 8 4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function CheckIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      className={className}
-    >
-      <path d="m5 10 3 3 7-7" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export function CategoryFilter({
   categories,
   autoFocus = false,
   className = "",
   variant = "glass",
   onSelect,
+  onDismiss,
   inline = false,
 }: CategoryFilterProps) {
   const { updateFilters, searchParams } = useUrlFilters();
@@ -72,6 +45,8 @@ export function CategoryFilter({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const typeahead = useRef("");
+  const typeaheadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const listboxId = useId();
 
   const options: CategoryOption[] = [
@@ -126,6 +101,33 @@ export function CategoryFilter({
     return () => document.removeEventListener("pointerdown", handlePointerDown);
   }, [open]);
 
+  useEffect(
+    () => () => {
+      if (typeaheadTimer.current) {
+        clearTimeout(typeaheadTimer.current);
+      }
+    },
+    [],
+  );
+
+  function findTypeaheadIndex(key: string) {
+    typeahead.current += key.toLowerCase();
+
+    const index = options.findIndex((option) =>
+      option.name.toLowerCase().startsWith(typeahead.current),
+    );
+
+    if (typeaheadTimer.current) {
+      clearTimeout(typeaheadTimer.current);
+    }
+
+    typeaheadTimer.current = setTimeout(() => {
+      typeahead.current = "";
+    }, 500);
+
+    return index;
+  }
+
   function selectCategory(slug: string) {
     setCategory(slug);
     updateFilters({ category: slug || null, page: 1 });
@@ -143,6 +145,22 @@ export function CategoryFilter({
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       event.preventDefault();
       setOpen(true);
+      return;
+    }
+
+    if (
+      event.key.length === 1 &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.altKey
+    ) {
+      const index = findTypeaheadIndex(event.key);
+
+      if (index >= 0) {
+        event.preventDefault();
+        setActiveIndex(index);
+        setOpen(true);
+      }
     }
   }
 
@@ -165,48 +183,78 @@ export function CategoryFilter({
     } else if (event.key === "Escape" && !inline) {
       event.preventDefault();
       closeList();
+    } else if (event.key === "Tab") {
+      if (inline) {
+        onDismiss?.();
+      } else {
+        setOpen(false);
+      }
+    } else if (
+      event.key.length === 1 &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.altKey
+    ) {
+      const index = findTypeaheadIndex(event.key);
+
+      if (index >= 0) {
+        setActiveIndex(index);
+      }
     }
   }
 
   const list = (
-    <div
-      ref={listRef}
-      id={listboxId}
-      role="listbox"
-      aria-label="Categories"
-      tabIndex={0}
-      aria-activedescendant={
-        options[activeIndex] ? `${listboxId}-option-${activeIndex}` : undefined
-      }
-      onKeyDown={handleListKeyDown}
-      className="styled-scrollbar max-h-64 overflow-y-auto overscroll-contain rounded-2xl p-1 outline-none"
-    >
-      {options.map((option, index) => {
-        const isSelected = option.slug === category;
-        const isActive = index === activeIndex;
+    <div className="relative">
+      <div
+        ref={listRef}
+        id={listboxId}
+        role="listbox"
+        aria-label="Categories"
+        tabIndex={0}
+        aria-activedescendant={
+          options[activeIndex] ? `${listboxId}-option-${activeIndex}` : undefined
+        }
+        onKeyDown={handleListKeyDown}
+        className="styled-scrollbar max-h-64 overflow-y-auto overscroll-contain rounded-2xl p-1 outline-none"
+      >
+        {options.map((option, index) => {
+          const isSelected = option.slug === category;
+          const isActive = index === activeIndex;
 
-        return (
-          <div
-            key={option.slug || "all"}
-            id={`${listboxId}-option-${index}`}
-            data-index={index}
-            role="option"
-            aria-selected={isSelected}
-            onClick={() => selectCategory(option.slug)}
-            onMouseEnter={() => setActiveIndex(index)}
-            className={`flex cursor-pointer items-center justify-between gap-2 rounded-xl px-3 py-2 text-sm transition ${
-              isSelected
-                ? "bg-accent text-accent-foreground"
-                : isActive
-                  ? "bg-gray-100 text-gray-900"
-                  : "text-gray-700"
-            }`}
-          >
-            <span className="truncate">{option.name}</span>
-            {isSelected && <CheckIcon className="h-4 w-4 shrink-0" />}
-          </div>
-        );
-      })}
+          return (
+            <div
+              key={option.slug || "all"}
+              id={`${listboxId}-option-${index}`}
+              data-index={index}
+              role="option"
+              aria-selected={isSelected}
+              onClick={() => selectCategory(option.slug)}
+              onMouseEnter={() => setActiveIndex(index)}
+              className={`flex cursor-pointer items-center justify-between gap-2 rounded-xl px-3 py-2 text-sm transition ${
+                isSelected
+                  ? "bg-accent text-accent-foreground"
+                  : isActive
+                    ? "bg-gray-100 text-gray-900"
+                    : "text-gray-700"
+              }`}
+            >
+              <span className="truncate">{option.name}</span>
+              {isSelected && (
+                <Check
+                  aria-hidden="true"
+                  strokeWidth={2}
+                  className="h-4 w-4 shrink-0"
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-1 bottom-1 h-8 rounded-b-2xl bg-gradient-to-t from-white/95 to-transparent"
+      />
     </div>
   );
 
@@ -236,8 +284,10 @@ export function CategoryFilter({
         className="flex h-12 w-full items-center justify-between gap-2 rounded-control bg-transparent pl-4 pr-3 text-left text-sm text-gray-900 outline-none"
       >
         <span className="truncate">{selectedName}</span>
-        <ChevronIcon
-          className={`h-4 w-4 shrink-0 text-gray-400 transition-transform duration-200 motion-reduce:transition-none ${
+        <ChevronDown
+          aria-hidden="true"
+          strokeWidth={1.8}
+          className={`h-4 w-4 shrink-0 text-gray-500 transition-transform duration-200 motion-reduce:transition-none ${
             open ? "rotate-180" : ""
           }`}
         />

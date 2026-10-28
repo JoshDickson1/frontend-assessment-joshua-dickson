@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { ProgressLink } from "@/components/NavigationProgress/ProgressLink";
 import { buildProductListUrl } from "@/lib/searchParams";
 
 interface PaginationProps {
@@ -9,12 +9,12 @@ interface PaginationProps {
 }
 
 const baseClass =
-  "inline-flex h-9 min-w-9 items-center justify-center rounded-md border px-3 text-sm font-medium transition";
+  "inline-flex h-9 min-w-9 items-center justify-center rounded-full border px-3 text-sm font-medium transition";
 const enabledClass =
-  "border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900";
+  "border-white/60 bg-white/60 text-gray-700 backdrop-blur-sm hover:-translate-y-0.5 hover:border-white/80 hover:bg-white hover:text-gray-900 hover:shadow-sm motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 const disabledClass =
-  "cursor-not-allowed border-gray-200 bg-gray-50 text-gray-300";
-const activeClass = "border-accent bg-accent text-accent-foreground";
+  "cursor-not-allowed border-white/40 bg-white/40 text-gray-300";
+const activeClass = "border-accent bg-accent text-accent-foreground shadow-sm";
 
 export function Pagination({
   currentPage,
@@ -40,12 +40,12 @@ export function Pagination({
       {isFirstPage ? (
         <span className={`${baseClass} ${disabledClass}`}>Previous</span>
       ) : (
-        <Link
+        <ProgressLink
           href={pageHref(currentPage - 1)}
           className={`${baseClass} ${enabledClass}`}
         >
           Previous
-        </Link>
+        </ProgressLink>
       )}
 
       {pages.map((page) =>
@@ -58,25 +58,25 @@ export function Pagination({
             {page}
           </span>
         ) : (
-          <Link
+          <ProgressLink
             key={page}
             href={pageHref(page)}
             className={`${baseClass} ${enabledClass}`}
           >
             {page}
-          </Link>
+          </ProgressLink>
         ),
       )}
 
       {isLastPage ? (
         <span className={`${baseClass} ${disabledClass}`}>Next</span>
       ) : (
-        <Link
+        <ProgressLink
           href={pageHref(currentPage + 1)}
           className={`${baseClass} ${enabledClass}`}
         >
           Next
-        </Link>
+        </ProgressLink>
       )}
     </nav>
   );

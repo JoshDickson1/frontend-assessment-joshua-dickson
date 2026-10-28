@@ -47,7 +47,7 @@ export function ProductImage({
 
   if (!src || failed) {
     return (
-      <div className="flex h-full w-full items-center justify-center rounded-lg bg-gray-100 text-xs font-medium text-gray-400">
+      <div className="flex h-full w-full items-center justify-center rounded-lg bg-gray-100 text-xs font-medium text-gray-600">
         Image unavailable
       </div>
     );

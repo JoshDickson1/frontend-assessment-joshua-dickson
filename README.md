@@ -20,6 +20,17 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Dependencies
+
+- Lucide is used for icons only. All components, layout, and styling are hand-built, with no UI component library.
+
+## Trade-offs
+
+- No splash screen, by design. SSR plus branded skeletons gives faster perceived load and protects LCP.
+- Entrance animations skip the first row of product cards so the LCP image is never hidden behind an opacity animation.
+- Next.js `experimental.viewTransition` could not run with the installed React 19.1.0 (`ViewTransition` is undefined), so page changes use a short CSS fade instead of the native view-transition image morph.
+- The top progress bar uses `useLinkStatus` for link navigations and the `useTransition` pending state from `useUrlFilters` for search, filter, and pagination updates.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

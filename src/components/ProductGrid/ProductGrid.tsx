@@ -13,6 +13,7 @@ export function ProductGrid({ products }: ProductGridProps) {
           key={product.id}
           product={product}
           priority={index < 4}
+          index={index}
         />
       ))}
     </div>

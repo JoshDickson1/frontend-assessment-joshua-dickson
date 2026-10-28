@@ -2,18 +2,24 @@ import { ProductGridSkeleton } from "@/components/Skeletons/ProductGridSkeleton"
 
 export default function Loading() {
   return (
-    <main className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <header className="mb-6">
-        <div className="h-8 w-48 animate-pulse rounded bg-gray-200" />
-      </header>
+    <main className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="pb-12 pt-16 sm:pb-16 sm:pt-24">
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <div className="skeleton h-12 w-72 max-w-full rounded-xl sm:h-14 sm:w-96" />
+          <div className="skeleton mt-4 h-5 w-full max-w-lg rounded" />
+          <div className="mt-10 flex h-[108px] w-full max-w-2xl flex-col gap-3 sm:h-12 sm:flex-row">
+            <div className="skeleton h-12 flex-1 rounded-control" />
+            <div className="skeleton h-12 rounded-control sm:w-52" />
+          </div>
+        </div>
+      </section>
 
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row">
-        <div className="h-10 w-full animate-pulse rounded-lg bg-gray-200 sm:max-w-xs" />
-        <div className="h-10 w-full animate-pulse rounded-lg bg-gray-200 sm:w-48" />
-      </div>
-
-      <div className="mb-6 h-5 w-40 animate-pulse rounded bg-gray-200" />
-      <ProductGridSkeleton />
+      <section className="pb-16">
+        <div className="mb-6 flex flex-wrap items-center gap-3">
+          <div className="skeleton h-5 w-40 rounded" />
+        </div>
+        <ProductGridSkeleton />
+      </section>
     </main>
   );
 }

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
+import { FilterChips } from "@/components/FilterChips/FilterChips";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { ProductGrid } from "@/components/ProductGrid/ProductGrid";
 import { getProducts, PRODUCTS_PER_PAGE } from "@/lib/api";
@@ -32,9 +33,12 @@ export async function ProductResults({
 
   return (
     <>
-      <p className="mb-6 text-sm text-gray-500">
-        {total} products &middot; Page {currentPage} of {totalPages}
-      </p>
+      <div className="mb-6 flex flex-wrap items-center gap-3">
+        <p className="text-sm text-gray-600">
+          {total} products &middot; Page {currentPage} of {totalPages}
+        </p>
+        <FilterChips q={q} category={category} />
+      </div>
 
       {products.length === 0 ? (
         <EmptyState query={q} category={category} />

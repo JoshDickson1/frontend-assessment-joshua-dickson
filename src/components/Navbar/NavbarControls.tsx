@@ -1,5 +1,6 @@
 "use client";
 
+import { Search, SlidersHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { CategoryFilter } from "@/components/CategoryFilter/CategoryFilter";
 import { SearchBar } from "@/components/SearchBar/SearchBar";
@@ -11,39 +12,6 @@ interface NavbarControlsProps {
   categories: Category[];
   query?: string;
   category?: string;
-}
-
-function SearchIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      className={className}
-    >
-      <circle cx="9" cy="9" r="5.25" />
-      <path d="m13 13 3.5 3.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function SlidersIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      className={className}
-    >
-      <path d="M3 6h14M3 14h14" strokeLinecap="round" />
-      <circle cx="7" cy="6" r="1.8" fill="currentColor" stroke="none" />
-      <circle cx="13" cy="14" r="1.8" fill="currentColor" stroke="none" />
-    </svg>
-  );
 }
 
 export function NavbarControls({
@@ -103,7 +71,7 @@ export function NavbarControls({
   return (
     <div
       ref={containerRef}
-      className="flex h-10 animate-[fade-slide-in_220ms_ease-out] items-center gap-1.5 motion-reduce:animate-none"
+      className="relative flex h-10 animate-[fade-slide-in_220ms_ease-out] items-center gap-1.5 motion-reduce:animate-none"
     >
       <button
         ref={searchButtonRef}
@@ -115,7 +83,11 @@ export function NavbarControls({
         aria-controls="navbar-search-panel"
         className={buttonClass}
       >
-        <SearchIcon className="h-5 w-5" />
+        <Search
+          aria-hidden="true"
+          strokeWidth={1.8}
+          className="h-5 w-5"
+        />
         {query && (
           <span
             aria-hidden="true"
@@ -134,7 +106,11 @@ export function NavbarControls({
         aria-controls="navbar-filter-panel"
         className={buttonClass}
       >
-        <SlidersIcon className="h-5 w-5" />
+        <SlidersHorizontal
+          aria-hidden="true"
+          strokeWidth={1.8}
+          className="h-5 w-5"
+        />
         {category && (
           <span
             aria-hidden="true"
@@ -152,9 +128,9 @@ export function NavbarControls({
           aria-label={
             panel === "search" ? "Search products" : "Filter by category"
           }
-          className="fixed inset-x-0 top-16 z-50 px-4 pt-2 sm:px-6"
+          className="absolute right-0 top-full z-50 mt-3 w-[calc(100vw-2rem)] sm:w-80"
         >
-          <div className="glass mx-auto w-full max-w-2xl animate-[panel-in_180ms_ease-out] rounded-2xl p-3 motion-reduce:animate-none">
+          <div className="glass animate-[panel-in_180ms_ease-out] rounded-2xl p-3 motion-reduce:animate-none">
             {panel === "search" ? (
               <SearchBar autoFocus variant="plain" onSubmit={closePanel} />
             ) : (
@@ -163,6 +139,7 @@ export function NavbarControls({
                 autoFocus
                 variant="plain"
                 onSelect={closePanel}
+                onDismiss={() => setPanel(null)}
                 inline
               />
             )}

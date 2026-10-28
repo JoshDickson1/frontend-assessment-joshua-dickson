@@ -1,4 +1,6 @@
-import Link from "next/link";
+import { Star } from "lucide-react";
+import type { CSSProperties } from "react";
+import { ProgressLink } from "@/components/NavigationProgress/ProgressLink";
 import { ProductImage } from "@/components/ProductImage/ProductImage";
 import type { Product } from "@/types/product";
 
@@ -10,33 +12,38 @@ const priceFormatter = new Intl.NumberFormat("en-US", {
 interface ProductCardProps {
   product: Product;
   priority?: boolean;
+  index?: number;
 }
 
-function StarIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-      className="h-4 w-4 text-amber-500"
-    >
-      <path d="M9.05 2.93c.3-.92 1.6-.92 1.9 0l1.29 3.96a1 1 0 0 0 .95.69h4.16c.97 0 1.37 1.24.59 1.81l-3.37 2.44a1 1 0 0 0-.36 1.12l1.28 3.96c.3.92-.75 1.69-1.54 1.12l-3.36-2.45a1 1 0 0 0-1.18 0l-3.36 2.45c-.79.57-1.84-.2-1.54-1.12l1.28-3.96a1 1 0 0 0-.36-1.12L2.05 9.39c-.78-.57-.38-1.81.59-1.81h4.16a1 1 0 0 0 .95-.69l1.3-3.96Z" />
-    </svg>
-  );
-}
+export function ProductCard({
+  product,
+  priority = false,
+  index = 0,
+}: ProductCardProps) {
+  const shouldAnimate = index >= 4 && index < 8;
 
-export function ProductCard({ product, priority = false }: ProductCardProps) {
   return (
-    <Link
+    <ProgressLink
       href={`/items/${product.id}`}
-      className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition hover:-translate-y-0.5 hover:shadow-md"
+      style={
+        shouldAnimate
+          ? ({ "--card-index": index } as CSSProperties)
+          : undefined
+      }
+      className={`group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200/70 bg-white shadow-sm transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
+        shouldAnimate
+          ? "animate-[card-in_320ms_ease-out_both] [animation-delay:calc((var(--card-index)-4)*50ms)] motion-reduce:animate-none"
+          : ""
+      }`}
     >
-      <div className="relative aspect-square bg-gray-50 p-4">
-        <ProductImage
-          src={product.thumbnail}
-          alt={product.title}
-          priority={priority}
-        />
+      <div className="relative aspect-square overflow-hidden bg-gray-50 p-4">
+        <div className="h-full w-full transition-transform duration-300 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100">
+          <ProductImage
+            src={product.thumbnail}
+            alt={product.title}
+            priority={priority}
+          />
+        </div>
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
@@ -49,11 +56,16 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
             {priceFormatter.format(product.price)}
           </span>
           <span className="flex items-center gap-1 text-sm text-gray-600">
-            <StarIcon />
+            <Star
+              aria-hidden="true"
+              strokeWidth={1.8}
+              fill="currentColor"
+              className="h-4 w-4 text-amber-500"
+            />
             {product.rating.toFixed(1)}
           </span>
         </div>
       </div>
-    </Link>
+    </ProgressLink>
   );
 }
