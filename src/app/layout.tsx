@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Instrument_Serif } from "next/font/google";
 import { Background } from "@/components/Background/Background";
+import { Footer } from "@/components/Footer/Footer";
 import { NavigationProgressProvider } from "@/components/NavigationProgress/NavigationProgressProvider";
 import { Navbar } from "@/components/Navbar/Navbar";
 import "./globals.css";
@@ -29,13 +30,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${instrumentSerif.variable} font-sans antialiased`}
+        id="top"
+        className={`${geistSans.variable} ${instrumentSerif.variable} flex min-h-screen flex-col font-sans antialiased`}
       >
         <NavigationProgressProvider>
-          <div className="relative isolate min-h-screen">
+          <div className="relative isolate flex flex-1 flex-col">
             <Background />
             <Navbar />
-            <div className="relative">{children}</div>
+            <div className="relative flex-1">{children}</div>
+            <Footer />
           </div>
         </NavigationProgressProvider>
       </body>
