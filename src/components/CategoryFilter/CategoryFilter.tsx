@@ -253,7 +253,7 @@ export function CategoryFilter({
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-1 bottom-1 h-8 rounded-b-2xl bg-gradient-to-t from-white/95 to-transparent"
+        className="pointer-events-none absolute inset-x-1 bottom-1 h-8 rounded-b-2xl bg-gradient-to-t from-white/85 to-transparent"
       />
     </div>
   );
@@ -270,7 +270,7 @@ export function CategoryFilter({
   return (
     <div
       ref={wrapperRef}
-      className={`relative w-full rounded-control ${surface} transition focus-within:border-accent/40 focus-within:ring-4 focus-within:ring-accent/15 ${className}`}
+      className={`relative w-full rounded-control ${surface} transition focus-within:border-accent/40 focus-within:ring-4 focus-within:ring-accent/15 ${open ? "z-30" : ""} ${className}`}
     >
       <button
         ref={triggerRef}
@@ -294,7 +294,7 @@ export function CategoryFilter({
       </button>
 
       {open && (
-        <div className="glass absolute left-0 right-0 top-full z-50 mt-2 animate-[panel-in_160ms_ease-out] rounded-2xl p-1.5 shadow-xl motion-reduce:animate-none">
+        <div className="absolute left-0 right-0 top-full z-50 mt-2 animate-[panel-in_160ms_ease-out] rounded-2xl border border-white/70 bg-white/95 p-1.5 shadow-xl backdrop-blur-xl supports-[backdrop-filter]:bg-white/75 motion-reduce:animate-none">
           {list}
         </div>
       )}
